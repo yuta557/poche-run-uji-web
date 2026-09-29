@@ -256,14 +256,14 @@
     <div id="cap"></div>
     <div id="msg"></div>
   </div>
-  <div id="mapTip" hidden><b>「地図」をおすと</b>たてものが3Dで回って、<br>今いる場所が分かるよ</div>
+  <div id="mapTip" hidden><b>「地図」をおすと</b>建物が3Dで回って、<br>今いる場所が分かるよ</div>
   <div id="toast"><b id="toastName"></b><span id="toastText"></span></div>
   <div id="mapWrap" hidden>
     <canvas id="mapGL"></canvas><canvas id="mapUI"></canvas>
     <div class="mapHead" id="mapHead"></div>
     <div class="mapModes">
       <button class="mapMode on" id="mapModeMaze">めいろ</button>
-      <button class="mapMode" id="mapModeBldg">たてもの</button>
+      <button class="mapMode" id="mapModeBldg">建物</button>
     </div>
     <div class="mapZoom"><button class="mapZoomBtn" id="mapZoomIn" aria-label="大きく">＋</button><button class="mapZoomBtn" id="mapZoomOut" aria-label="小さく">－</button></div>
     <div class="mapHint">1本指で回す／2本指で大きく・ずらす</div>
@@ -277,10 +277,10 @@
     <button class="primary" id="playBtn">遊ぶ ▶</button>
     <div class="row">
       <button class="ghosty" id="hardBtn" hidden>ふつうの版</button>
-      <button class="ghosty" id="selBtn">面をえらぶ</button>
+      <button class="ghosty" id="selBtn">面を選ぶ</button>
       <button class="ghosty" id="sndBtn2">🔇 音OFF</button>
     </div>
-    <div class="credits">たてものの絵・地図は イメージです</div>
+    <div class="credits">建物の絵・地図は イメージです</div>
   </div></div>
 
   <div class="overlay hidden" id="explain"><div class="ovl storyOvl">
@@ -292,13 +292,13 @@
   </div></div>
 
   <div class="overlay hidden" id="select"><div class="ovl">
-    <h2 class="selTitle">面をえらぶ</h2>
+    <h2 class="selTitle">面を選ぶ</h2>
     <div class="stages" id="stageBtns"></div>
-    <button class="ghosty" id="backBtn">← はじめの画面へ</button>
+    <button class="ghosty" id="backBtn">← 初めの画面へ</button>
   </div></div>
 
   <div class="overlay hidden" id="intro">
-    <button class="ovlClose" id="introClose" title="面えらびへ もどる" aria-label="とじる">✕</button><div class="ovl">
+    <button class="ovlClose" id="introClose" title="面選びへ もどる" aria-label="とじる">✕</button><div class="ovl">
     <div class="introCard" id="introCard"></div>
     <button class="primary" id="introBtn">かべの中へ ▶</button>
   </div></div>
@@ -309,14 +309,14 @@
     <div class="rsTime" id="rsTime"></div>
     <div id="rsFound"></div>
     <button class="primary" id="rsNext">次へ ▶</button>
-    <button class="ghosty" id="rsBack">面えらびへ</button>
+    <button class="ghosty" id="rsBack">面選びへ</button>
   </div></div>
 
   <div class="overlay hidden" id="gameover"><div class="ovl">
-    <div class="bigword soft">ざんねん！</div>
+    <div class="bigword soft">残念！</div>
     <div class="goNote">オニに3回 タッチされちゃった。<br>もう一度 やってみよう。</div>
     <button class="primary" id="goRetry">もう一度 ▶</button>
-    <button class="ghosty" id="goBtn">面えらびへ</button>
+    <button class="ghosty" id="goBtn">面選びへ</button>
   </div></div>
 
   <div class="overlay hidden" id="ending"><div class="ovl">
@@ -391,14 +391,14 @@ const LEVELS = [
   {
     nameJa: "宇治上神社", short: "宇治上神社", illust: "ujigami",
     seeInside: true,                       // 地図を大きくすると屋根がすけて、覆屋の中の3つのお社が見える（この面だけ）
-    lead: "小さな3つのお社を、ひとつの屋根でつつんだ神社。",
+    lead: "小さな3つのお社を、一つの屋根で包んだ神社。",
     pattern: "brick", mat: "wood", mainFloor: 0,
     ghostN: 2, ghostSpeed: 3.2, fright: 8, ghostWait: [5, 10],
     pal: PAL("#9B4A2C", "#7C3A21", "#5E2A17"),
     landmarks: [
       { f:0, x:5,  y:4,  n:"屋根の中の3つのお社", c:"大きさの ちがうお社3つを ならべて、大きな屋根（覆屋・おおいや）でまとめて おおっているよ。" },
       { f:0, x:13, y:5,  n:"ヒノキの皮と古い木", c:"屋根はヒノキの皮（檜皮・ひわだ）で ふいてあるよ。使われた木は、1060年ごろに切られたと分かったんだ。" },
-      { f:0, x:1,  y:17, n:"人のための家の形", c:"おまいりする 人が使う はいでんは、昔のきぞくの家（寝殿造・しんでんづくり）のつくりを つたえているよ。" }
+      { f:0, x:1,  y:17, n:"人のための家の形", c:"お参りする 人が使う はいでんは、昔のきぞくの家（寝殿造・しんでんづくり）のつくりを 伝えているよ。" }
     ],
     floors: [
       { key:"Ujigami", name:"ほんでんと はいでん", elev:0,
@@ -406,7 +406,7 @@ const LEVELS = [
         {t:"room",x:8.5,y:6.2,s:"ほんでん（おおいの 中）",size:.36},
         {t:"room",x:11.4,y:11.6,s:"← 石だん",size:.34},{t:"text",x:11.4,y:12.5,s:"ここだけで 行き来",size:.3},
         {t:"room",x:8.5,y:18.2,s:"はいでん",size:.42},
-        {t:"room",x:8.5,y:22.0,s:"おまいりの 道",size:.36}
+        {t:"room",x:8.5,y:22.0,s:"お参りの 道",size:.36}
       ]}
     ],
     warps: [],
@@ -426,17 +426,17 @@ const LEVELS = [
     hardGhostN: 4, hardGhostFloors: [0, 1, 2, 0], hardGhostWait: [4, 6, 9, 12],
     pal: PAL("#1E608F", "#174D74", "#113A58"),
     landmarks: [
-      { f:0, x:1,  y:14, n:"つつの形のわけ", c:"だんだんに つづく宇治の茶畑を、つつの形で表したんだって。" },
-      { f:1, x:5,  y:13, n:"線路の下の コンクリート", c:"JRの線路の下をくぐる通路。かべの小さな丸いあなは、コンクリートを 流しこむ かたわくを とめていた あとだよ。" },
+      { f:0, x:1,  y:14, n:"つつの形のわけ", c:"だんだんに 続く宇治の茶畑を、つつの形で表したんだって。" },
+      { f:1, x:5,  y:13, n:"線路の下の コンクリート", c:"JRの線路の下をくぐる通路。かべの小さな丸いあなは、コンクリートを 流しこむ かたわくを 止めていた あとだよ。" },
       { f:2, x:15, y:16, n:"北と南に分かれた駅", c:"駅はJRの線路をはさんで、北にホームと丸いアーチの駅、南に駅ビルが あって、地下で つながって いるよ。" }
     ],
     floors: [
       { key:"Station", name:"北の駅", elev:0,
         pen:{ spots:[[2,7],[3,7],[2,8],[3,8]], door:[2,6] }, decor:[
         {t:"room",x:8.5,y:3.6,s:"↑ ホーム",size:.4},
-        {t:"text",x:8.5,y:8.0,s:"かいさつ",size:.32},
+        {t:"text",x:8.5,y:8.0,s:"改札",size:.32},
         {t:"room",x:12.9,y:8.0,s:"つつの 屋根",size:.3},{t:"room",x:3.6,y:12.0,s:"つつの 屋根",size:.3},
-        {t:"text",x:13.4,y:15.7,s:"とがり屋根の たてもの",size:.26},
+        {t:"text",x:13.4,y:15.7,s:"とがり屋根の 建物",size:.26},
         {t:"text",x:5.4,y:17.6,s:"地下へ →",size:.32}
       ]},
       { key:"Station B1", name:"地下通路", elev:-1, powerN:1,        // 青のカケラは この階に 1つだけ
@@ -447,9 +447,9 @@ const LEVELS = [
       ]},
       { key:"Station Exit", name:"駅ビル", elev:0, powerN:1,         // 青のカケラは この階に 1つだけ
         pen:{ spots:[[3,15],[4,15],[3,16],[4,16]], door:[3,14] }, decor:[
-        {t:"text",x:4.6,y:15.0,s:"かんこう あんない所",size:.26},
+        {t:"text",x:4.6,y:15.0,s:"観光案内所",size:.26},
         {t:"text",x:12.5,y:16.0,s:"お店",size:.32},{t:"text",x:8.5,y:19.3,s:"入口",size:.32},
-        {t:"text",x:8.5,y:20.6,s:"↓ バス・タクシーのりば",size:.34}
+        {t:"text",x:8.5,y:20.6,s:"↓ バス・タクシー乗り場",size:.34}
       ]}
     ],
     warps: [
@@ -463,7 +463,7 @@ const LEVELS = [
     nameJa: "平等院ミュージアム鳳翔館", short: "鳳翔館", illust: "hosho",
     /* 正面は茶房がわ（東）。はじまりの演出は ここから回りはじめ、地図もこの向きで開く */
     frontYaw: 0.25, mapYaw: 0.25,
-    lead: "たてものの ほとんどが、地面の下に かくれている ミュージアム。",
+    lead: "建物の ほとんどが、地面の下に かくれている ミュージアム。",
     pattern: "travertine", mat: "stone", mainFloor: 0,
     noTrail: 1,      // 歩いたあとを 色で塗らない。部屋の中のスケッチが 見えなくなるため
     ghostN: 2, ghostFloors: [0, 1], ghostSpeed: 3.7, fright: 6.5, ghostWait: [4, 6],   // オニは 地下の扉絵の間と 地上のロビーから
@@ -474,9 +474,9 @@ const LEVELS = [
     pal: PAL("#8A6A45", "#6E5334", "#553F26"),
     /* 見どころの文は、雑誌の図面と仕上表（2001年）で確かめたことだけ */
     landmarks: [
-      { f:0, x:13, y:9,  n:"うんちゅうの間", c:"地下のいちばん大きなてんじ室。天じょうの高さは5m。雲にのった小さな ほとけの ぞうが、白く光るかべに うかぶように ならぶよ。" },
-      { f:1, x:9,  y:13, n:"うすい屋根とガラスの おび", c:"白いうすい平らな屋根が、高さをかえて何まいも かさなる。高い屋根の東のはしは ガラスの おびで、白いはりを ならべた下に やわらかい光が落ちるよ。" },
-      { f:1, x:10, y:6,  n:"木のデッキと コケの庭", c:"東がわの木のデッキは、ひくい のきの下。その先にコケの庭と白い玉石のおびがある。鳳凰堂の庭のけしきを こわさないよう、たてものは おかに うめてあるんだ。" }
+      { f:0, x:13, y:9,  n:"うんちゅうの間", c:"地下の一番大きなてんじ室。天井の高さは5m。雲にのった小さな ほとけの ぞうが、白く光るかべに うかぶように ならぶよ。" },
+      { f:1, x:9,  y:13, n:"うすい屋根とガラスの帯", c:"白いうすい平らな屋根が、高さをかえて何まいも かさなる。高い屋根の東のはしは ガラスの帯で、白いはりを ならべた下に やわらかい光が落ちるよ。" },
+      { f:1, x:10, y:6,  n:"木のデッキと コケの庭", c:"東側の木のデッキの上には、うすい屋根が 低く かかっているよ。その先には コケの庭と、白い玉石の帯が 続く。鳳凰堂から 見た 庭の 景色を こわさないよう、建物は おかに うめてあるんだ。" }
     ],
     floors: [
       { key:"Hosho B1", name:"地下", elev:-1,
@@ -499,7 +499,7 @@ const LEVELS = [
         {t:"text",x:12.4,y:6.6,s:"コケの 庭",size:.28},{t:"text",x:12.4,y:16.2,s:"石庭",size:.3},
         {t:"text",x:12.4,y:11.4,s:"茶房への 通路",size:.24},
         {t:"text",x:8.5,y:18.4,s:"↓ 階だん",size:.26},
-        {t:"text",x:4.5,y:20.0,s:"たてものの ほとんどは 地下に ある",size:.3}
+        {t:"text",x:4.5,y:20.0,s:"建物の ほとんどは 地下に ある",size:.3}
       ]}
     ],
     warps: [
@@ -520,8 +520,8 @@ const TUTORIAL = {
     pen:{ spots:[[4,8],[5,8],[6,8],[5,9]], door:[5,6] }, decor:[
     {t:"room",x:5.5,y:9.2,s:"部屋",size:.46},{t:"room",x:11.5,y:9.2,s:"部屋",size:.46},
     {t:"room",x:5.5,y:14.2,s:"部屋",size:.46},{t:"room",x:11.5,y:14.2,s:"部屋",size:.46}
-    /* この めいろは どの たてものでもない ただの練習なので、
-       たてものの名前と「今 いる所」は 出さない */
+    /* この めいろは どの 建物でもない ただの練習なので、
+       建物の名前と「今 いる所」は 出さない */
   ]}],
   warps: [], corners: [[0,2,6]], playerSpawn:[0,8,18],
   dotCells: [[9,16],[10,16],[11,16],[12,16],[13,16],[14,16],[14,15],[14,14],[14,13],[14,12]]
@@ -553,7 +553,7 @@ let powers = new Set();
 /* 光った足あと：拾った順番を持っておき、順に色を変えて塗る（当日の「光の足あと」と同じ色） */
 let lit = new Map(), litStep = 0, dotTotal = 1;
 const LIGHTCOLS = ["#FFC53D","#2BB3B0","#F4795B","#7FB8EC"];
-/* のこりが少なくなったら、のこりのつぶを目立たせて知らせる */
+/* 残りが少なくなったら、のこりのつぶを目立たせて知らせる */
 const FEW_LEFT = 10;
 let hint = { few:false, floorDone:-1, allStars:false };
 /* 青のカケラの置き場所：各階の対角のすみ、なるべく行き止まり寄りの安全でない場所。
@@ -733,7 +733,7 @@ function fitFrame(){
   }
   syncHudH();
 }
-/* HUD：面の名前・光ったぶん・のこり だけ */
+/* HUD：面の名前・光ったぶん・残り だけ */
 function updateChips(){
   if (!L) return;
   const nm = $("lvname");
@@ -1373,12 +1373,12 @@ function showIntro(){
   const m = L, key = String(levelIdx);
   const ill = ILLUSTS[key];
   $("introCard").innerHTML =
-    `<div class="stageNo">${levelIdx+1}つ目の たてもの${hard ? "（🔥 むずかしい版）" : ""}</div>
+    `<div class="stageNo">${levelIdx+1}つ目の 建物${hard ? "（🔥 むずかしい版）" : ""}</div>
      <h2>${m.nameJa}</h2>
      <p class="lead">${m.lead || ""}</p>
      ${ill ? `<div class="pic"><img src="${ill}" alt=""></div>` : ""}
-     <div class="goal">ゴール：<b>光の つぶを 全部 拾う</b>${m.floors.length > 2 ? "（" + m.floors.map(f=>f.name).join("・") + "の全部）" : m.floors.length > 1 ? "（" + m.floors.map(f=>f.name).join("と ") + "の両方）" : ""}<br><span>★は みどころ。オニは 青い つぶで おいかえせる</span></div>
-     <div class="note">※ たてものの 絵・地図は イメージです</div>`;
+     <div class="goal">ゴール：<b>光の つぶを 全部 拾う</b>${m.floors.length > 2 ? "（" + m.floors.map(f=>f.name).join("・") + "の全部）" : m.floors.length > 1 ? "（" + m.floors.map(f=>f.name).join("と ") + "の両方）" : ""}<br><span>★は 見どころ。オニは 青い つぶで おいかえせる</span></div>
+     <div class="note">※ 建物の 絵・地図は イメージです</div>`;
   hideOverlays(); hideToast();
   $("intro").classList.remove("hidden");
   draw(0);
@@ -1538,7 +1538,7 @@ function update(dt){
       else if (L.floors.length > 1 && dotsOnFloor(player.f) === 0 && hint.floorDone !== player.f){
         hint.floorDone = player.f;
         const other = L.floors.findIndex((fl, i)=> i !== player.f && dotsOnFloor(i) > 0);
-        if (other >= 0) flashMsg("この階は全部光った！のこりは " + L.floors[other].name + "にあるよ", 2400);
+        if (other >= 0) flashMsg("この階は全部光った！残りは " + L.floors[other].name + "にあるよ", 2400);
       }
     }
   }
@@ -1614,7 +1614,7 @@ function update(dt){
         flashMsg("やった！", 700); sfxEat(ghostChain);
         if (tut) tut.ate = true;
       } else if (L.tutorial){
-        flashMsg("タッチされた！本番では のこりが1つへるよ", 1800);
+        flashMsg("タッチされた！本番では 残りが1つへるよ", 1800);
         beep(220,0.25,"triangle",0.05,-80);
         g.x=2; g.y=6; g.dir={x:1,y:0};
       } else {
@@ -1658,7 +1658,7 @@ function afterDeath(){
   lives--;
   if (lives<=0){ updateChips(); gameOver(); return; }
   resetActors(false);
-  state="play"; flashMsg("のこり " + "♥".repeat(lives) + "　もう一度！", 1100);
+  state="play"; flashMsg("残り " + "♥".repeat(lives) + "　もう一度！", 1100);
 }
 /* ---------------- 見どころのひとこと / 結果 / おわり ---------------- */
 let toastT = 0;
@@ -1683,8 +1683,8 @@ function showResult(){
     const ok = lmVisited.has(i);
     fh += '<button type="button" class="lmChip ' + (ok?"ok":"") + '" data-i="' + i + '">' + (ok?"★ ":"☆ ") + lm.n + '</button>';
   });
-  $("rsFound").innerHTML = fh ? '<div class="rsFoundT">見つけた みどころ（おすと説明が出るよ）</div><div class="rsFoundL">' + fh + '</div><div class="rsLmText" id="rsLmText" hidden></div>' : "";
-  /* 終わったあとも、みどころをおすと ひとことが読める */
+  $("rsFound").innerHTML = fh ? '<div class="rsFoundT">見つけた 見どころ（おすと説明が出るよ）</div><div class="rsFoundL">' + fh + '</div><div class="rsLmText" id="rsLmText" hidden></div>' : "";
+  /* 終わったあとも、見どころをおすと ひとことが読める */
   for (const b of $("rsFound").querySelectorAll(".lmChip")){
     b.onclick = ()=>{
       const lm = L.landmarks[+b.dataset.i], box = $("rsLmText"), on = b.classList.contains("sel");
@@ -1696,7 +1696,7 @@ function showResult(){
       beep(660, 0.03, "triangle", 0.02);
     };
   }
-  $("rsNext").textContent = levelIdx + 1 >= LEVELS.length ? "終わりへ ▶" : "次の たてものへ ▶";
+  $("rsNext").textContent = levelIdx + 1 >= LEVELS.length ? "終わりへ ▶" : "次の 建物へ ▶";
   hideOverlays();
   $("result").classList.remove("hidden");
 }
@@ -1970,7 +1970,7 @@ function drawScene(t){
       }
       ctx.fillStyle = p.dot;
       ctx.beginPath(); ctx.arc(dx2, dy2, 5, 0, 7); ctx.fill();
-      if (!L.tutorial && dots.size <= FEW_LEFT){            // のこりが少ない：どこにあるか分かるように
+      if (!L.tutorial && dots.size <= FEW_LEFT){            // 残りが少ない：どこにあるか分かるように
         const pu = (t*1.4 + (x+y)*0.13) % 1;
         ctx.save(); ctx.strokeStyle = `rgba(255,197,61,${1-pu})`; ctx.lineWidth = 5;
         ctx.beginPath(); ctx.arc(dx2, dy2, TILE*(0.25 + 0.45*pu), 0, 7); ctx.stroke();
@@ -1994,7 +1994,7 @@ function drawScene(t){
       }
     }
   }
-  // landmarks: いつでも出ている「みどころ」の星
+  // landmarks: いつでも出ている「見どころ」の星
   if (L.landmarks && !planView){
     L.landmarks.forEach((lm,i)=>{
       if (lm.f!==fl) return;
@@ -2078,7 +2078,7 @@ const TUT_CAPS = [
   "光のつぶを全部拾おう",
   "オニが来た！ タッチされないように にげて",
   "青いつぶを拾うとオニが にげる。タッチしてみよう",
-  "じゅんびOK！さあ、宇治の たてものへ"
+  "じゅんびOK！さあ、宇治の 建物へ"
 ];
 let capShown = null;
 function setCaption(txt){
@@ -2203,7 +2203,7 @@ function drawDecor(t,p,fl,top){
   ctx.restore();
 }
 
-/* 星（みどころ）。g は描き先の 2D コンテキスト */
+/* 星（見どころ）。g は描き先の 2D コンテキスト */
 function drawStar(g, x, y, r, fill, stroke){
   g.save(); g.beginPath();
   for (let i=0;i<10;i++){
@@ -2499,7 +2499,7 @@ function map3dModel(key){
 }
 /* 目（eye）から点（pt）までのあいだに、いま不透明に描いている面があれば true（＝その点は建物のかげ）。木（site）は数えない */
 function map3dRayHidden(model, solid, eye, pt){ return map3dRayT(model, solid, eye, pt) < Infinity; }
-/* 線分 eye→pt が いちばん手前でぶつかる面までの割合 t（0〜0.985）。ぶつからなければ Infinity。last なら いちばん奥の面（-Infinity） */
+/* 線分 eye→pt が 一番手前でぶつかる面までの割合 t（0〜0.985）。ぶつからなければ Infinity。last なら 一番奥の面（-Infinity） */
 function map3dRayT(model, solid, eye, pt, last){
   const dx = pt[0]-eye[0], dy = pt[1]-eye[1], dz = pt[2]-eye[2], d = [dx, dy, dz];
   let best = last ? -Infinity : Infinity;
@@ -2541,7 +2541,7 @@ function m4look(e, c, u){
 }
 function map3dOpen(){
   map3d.on = true; map3d.key = String(levelIdx); map3d.idle = 9; map3d.last = performance.now(); map3d.auto = true; map3d.zoom = 1; map3d.pinch = null; map3d.pan = [0, 0];
-  map3d.yaw = (L.mapYaw != null) ? L.mapYaw : -0.9;  // 開いたときの向き（面ごとに、たてものの正面が手前に来る向き）
+  map3d.yaw = (L.mapYaw != null) ? L.mapYaw : -0.9;  // 開いたときの向き（面ごとに、建物の正面が手前に来る向き）
   const w = $("mapWrap"); w.hidden = false;
   const fl = L.floors.length > 1 ? "・" + L.floors[player.f].name : "";
   $("mapHead").textContent = "地図〈" + (L.short || L.nameJa) + fl + "〉";
@@ -2568,7 +2568,7 @@ function map3dRevealEnd(){
 function map3dRevealStep(dt, D){
   const R = map3d.reveal; R.t += dt;
   const ease = x => { x = Math.max(0, Math.min(1, x)); return x*x*(3 - 2*x); };
-  const yawF = (L.frontYaw != null) ? L.frontYaw : -Math.PI/2;            // たてものの正面：まっすぐ前（南）から見る向き
+  const yawF = (L.frontYaw != null) ? L.frontYaw : -Math.PI/2;            // 建物の正面：まっすぐ前（南）から見る向き
   const fr = D.floorRot && D.floorRot[player.f];
   const yawT = -Math.PI/2 + (fr ? fr[2]*Math.PI/180 : 0);                 // 盤面と同じ向き（真上から、上が奥）
   /* 正面から ぐるっと1周して、盤面の向きで 止まる。ぜんぶ 同じ向きに まわる（もどらない） */
@@ -2583,7 +2583,7 @@ function map3dRevealStep(dt, D){
   const TB = TP + REVEAL.spinB;                                           // ここで 1周
   const half = yawF + Math.PI;
   const solid = () => { map3d.mode = "bldg"; R.shellA = 1; map3d.pitch = 0.34; map3d.zoom = z0; };
-  if (R.t < TA){                                                          // ① 正面で少し止まって、そこから 半周（たてもののまま）
+  if (R.t < TA){                                                          // ① 正面で少し止まって、そこから 半周（建物のまま）
     map3d.yaw = yawF + Math.PI * ease((R.t - REVEAL.hold) / REVEAL.spinA);
     solid();
   } else if (R.t < TP){                                                   // ② 半周した所で ひと呼吸。ここで「かべの 中へ！」を 大きく 出す
@@ -2673,12 +2673,12 @@ function map3dFrame(now){
     }
   };
   /* めいろ：まわりの景色＋迷路の壁を不透明に、建物は半透明で重ねる
-     たてもの：まわりの景色＋建物を不透明に（迷路の壁は描かない） */
+     建物：まわりの景色＋建物を不透明に（迷路の壁は描かない） */
   const bldg = map3d.mode === "bldg";
-  /* 拡大すると屋根がすけて、たてものの中が見える（1.6倍から、2.5倍で消える） */
+  /* 拡大すると屋根がすけて、建物の中が見える（1.6倍から、2.5倍で消える） */
   /* 屋根がすけるのは、中に見せるものがある面（L.seeInside）だけ */
   const roofA = L.seeInside ? Math.max(0, Math.min(1, 1 - (map3d.zoom - 1.6) / 0.9)) : 1;
-  /* deco（段・石垣・石段・狛犬・木など）は「たてもの」のときだけ描く。「めいろ」は迷路と建物の輪郭だけ */
+  /* deco（段・石垣・石段・狛犬・木など）は「建物」のときだけ描く。「めいろ」は迷路と建物の輪郭だけ */
   const solid = m => m.deco ? bldg : (!m.shell ? (!m.maze || !bldg) : (bldg && !(m.roof && roofA < 1)));
   gl.disable(gl.BLEND); gl.depthMask(true);
   /* 組は大きな面から順に並んでいる。重なった面がちらつかないよう、あとの組（小さな部品）ほど手前に描く */
@@ -2715,7 +2715,7 @@ function map3dFrame(now){
   };
   const S = dpr, t = now/1000;
   const fam = `"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif`;
-  /* たてものの図：札や印の場所が ほかの建物のかげなら、札は出さず、印は「むこうにいるよ」に変える */
+  /* 建物の図：札や印の場所が ほかの建物のかげなら、札は出さず、印は「むこうにいるよ」に変える */
   const occKey = [map3d.yaw.toFixed(3), map3d.pitch.toFixed(3), map3d.zoom.toFixed(3), pan[0].toFixed(2), pan[1].toFixed(2), map3d.mode, player.f,
                   Math.round(player.x*4), Math.round(player.y*4), roofA < 1].join(",");
   if (!map3d.occV || (map3d.occKey !== occKey && now - (map3d.occT||0) > 120)){ map3d.occKey = occKey; map3d.occT = now; map3d.occV = {}; }
@@ -2736,7 +2736,7 @@ function map3dFrame(now){
   if (bldg){
     const z0 = (D.floorZ[player.f]||0) + D.wallH + 0.2, base = [gx + off[0], -gy, z0], top = [gx + off[0], -gy, 9.0];
     if (hiddenAt("me0", [base])){
-      const tr = map3dRayT(model, solid, base, top, true);       // いちばん上の屋根（ひさしや天井の上に屋根があることも）
+      const tr = map3dRayT(model, solid, base, top, true);       // 一番上の屋根（ひさしや天井の上に屋根があることも）
       behind = (tr === -Infinity) ? true : hiddenAt("me1", [[base[0], base[1], z0 + (9.0 - z0) * tr + 0.35]]);
     }
   }
@@ -2846,7 +2846,7 @@ function map3dBind(){
   $("mapZoomOut").onclick = ()=>{ setZoom(map3d.zoom/1.25); map3d.auto = false; };
   w.addEventListener("touchmove", e=>{ e.preventDefault(); }, { passive:false });
   /* もどる：切り替えではなく、必ず閉じてゲームにもどる */
-  $("mapClose").onclick = ()=>{ planView = false; map3dClose(); flashMsg("つづき", 600); };
+  $("mapClose").onclick = ()=>{ planView = false; map3dClose(); flashMsg("続き", 600); };
   const setMode = (md)=>{
     map3d.mode = md;
     $("mapModeMaze").classList.toggle("on", md === "maze");
@@ -2866,7 +2866,7 @@ function togglePlan(){
   if (planView) mapTipHide();
   if (planView && map3dAvailable()) map3dOpen();      // 3D の模型がつかえるときはそちら、だめなら平面図
   if (!planView) map3dClose();
-  flashMsg(planView ? "" : "つづき", planView?1:600);
+  flashMsg(planView ? "" : "続き", planView?1:600);
 }
 function quitToSelect(){
   if (map3d.on){ togglePlan(); return; }
@@ -2906,7 +2906,7 @@ addEventListener("keydown", e=>{
   if (state==="over" && enter){ e.preventDefault(); startGame(levelIdx); return; }
   if (state==="ending" && enter){ e.preventDefault(); startGame(0); return; }
   if (state!=="play") return;
-  if (e.code==="Space"){ e.preventDefault(); pauseFlag=!pauseFlag; flashMsg(pauseFlag?"ひと休み":"つづき",700); return; }
+  if (e.code==="Space"){ e.preventDefault(); pauseFlag=!pauseFlag; flashMsg(pauseFlag?"ひと休み":"続き",700); return; }
   const d = KEYMAP[e.code];
   if (d){ e.preventDefault(); steer(d); }
 });
@@ -2935,7 +2935,7 @@ $("skipBtn").onclick = ()=>startTutorial("play");
 $("explain").onclick = e=>{ if (e.target.closest("button")) return; storyNext(); };
 $("backBtn").onclick = showTitle;
 $("introBtn").onclick = beginPlay;
-$("introClose").onclick = showSelect;          // 説明の右上の ✕：面えらびへ もどる
+$("introClose").onclick = showSelect;          // 説明の右上の ✕：面選びへ もどる
 $("goRetry").onclick = ()=>startGame(levelIdx);
 $("goBtn").onclick = showSelect;
 $("rsNext").onclick = resultNext;
