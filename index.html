@@ -247,7 +247,7 @@
   <div id="hud" class="idle">
     <div class="lv" id="lvname">POCHÉ RUN UJI</div>
     <div id="lives" aria-label="のこり"></div>
-    <button class="hbtn" id="planBtn" title="Vキーでも切りかえ">地図</button>
+    <button class="hbtn" id="planBtn" title="Vキーでも切りかえ">3D</button>
     <button class="hbtn" id="sndBtn" title="Mキーでも切りかえ" aria-label="音">🔇</button>
     <button class="hbtn" id="quitBtn" title="Escキーでももどれる" aria-label="やめる">✕</button>
   </div>
@@ -256,7 +256,7 @@
     <div id="cap"></div>
     <div id="msg"></div>
   </div>
-  <div id="mapTip" hidden><b>「地図」をおすと</b>建物が3Dで回って、<br>今いる場所が分かるよ</div>
+  <div id="mapTip" hidden><b>「3D」をおすと</b>建物が回って、<br>今いる場所が分かるよ</div>
   <div id="toast"><b id="toastName"></b><span id="toastText"></span></div>
   <div id="mapWrap" hidden>
     <canvas id="mapGL"></canvas><canvas id="mapUI"></canvas>
@@ -327,7 +327,7 @@
     <div class="credits">むずかしい版：オニが1ぴき多くて速い。青いつぶの時間も短い</div>
   </div></div>
 </div>
-<div id="help">動く <kbd>←↑↓→</kbd> ・地図 <kbd>V</kbd> ・ひと休み <kbd>Space</kbd> ・やめる <kbd>Esc</kbd> ・音 <kbd>M</kbd></div>
+<div id="help">動く <kbd>←↑↓→</kbd> ・3D <kbd>V</kbd> ・ひと休み <kbd>Space</kbd> ・やめる <kbd>Esc</kbd> ・音 <kbd>M</kbd></div>
 
 <script>
 "use strict";
@@ -2544,7 +2544,7 @@ function map3dOpen(){
   map3d.yaw = (L.mapYaw != null) ? L.mapYaw : -0.9;  // 開いたときの向き（面ごとに、建物の正面が手前に来る向き）
   const w = $("mapWrap"); w.hidden = false;
   const fl = L.floors.length > 1 ? "・" + L.floors[player.f].name : "";
-  $("mapHead").textContent = "地図〈" + (L.short || L.nameJa) + fl + "〉";
+  $("mapHead").textContent = "3D〈" + (L.short || L.nameJa) + fl + "〉";
   const hint = w.querySelector(".mapHint"); if (hint) hint.textContent = "1本指で回す／2本指で大きく・ずらす" + (L.seeInside ? "（大きくすると中が見える）" : "");
   map3dModel(map3d.key);
 }
