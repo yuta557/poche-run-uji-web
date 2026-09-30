@@ -28,8 +28,9 @@
   #prog { display:block; height:100%; width:0; border-radius:99px;
     background:linear-gradient(90deg, var(--yellow), var(--teal), var(--coral), var(--sky)); transition:width .2s; }
   #lives { flex:0 0 auto; color:var(--coral); letter-spacing:.08em; font-size:15px; }
-  .hbtn { flex:0 0 auto; min-width:36px; height:34px; padding:0 14px; border-radius:99px; font-size:14px; font-weight:700;
+  .hbtn { flex:0 0 auto; min-width:36px; height:34px; padding:0 8px; border-radius:99px; font-size:14px; font-weight:700;
     background:var(--card); border:2px solid var(--line); color:var(--ink); text-align:center; }
+  #planBtn { padding:0 14px; }        /* 字のボタンだけ 左右をひろく（アイコンのボタンは まるいまま） */
   #hud.idle #progWrap, #hud.idle #lives, #hud.idle #planBtn, #hud.idle #quitBtn { display:none; }
   canvas#cv { display:block; width:100%; background:var(--paper); border-radius:16px;
     box-shadow:0 1px 0 var(--line), 0 10px 30px rgba(30,96,143,.12); touch-action:none; }
@@ -213,7 +214,8 @@
     #hud { font-size:13px; gap:4px; }
     #progWrap { flex-basis:30px; }
     #lives { font-size:13px; letter-spacing:0; }
-    .hbtn { padding:0 11px; min-width:34px; font-size:13px; }
+    .hbtn { padding:0 6px; min-width:34px; font-size:13px; }
+    #planBtn { padding:0 11px; }
   }
   /* 横持ちで高さが低い画面：盤面は左、上の帯と見どころのひとことは右 */
   @media (orientation:landscape) and (max-height:560px){
