@@ -435,7 +435,7 @@ const LEVELS = [
     /* 2つ目の面。1階（北：ホーム・改札）→ 地下通路（JR の線路の下）→ 1階（南の駅ビル）。
        オニは 主人公と同じ 北の駅に 1ぴき、地下通路に 1ぴき。階段を使って主人公の階へ追ってくる
        （階段の出口の印が赤くゆれたら、オニが来る合図） */
-    ghostN: 2, ghostFloors: [0, 1], ghostsStay: false, ghostSpeed: 3.4, fright: 7, ghostWait: [4, 6],   // 1ぴきは はじめから 北の駅（主人公のいる階）に いる
+    ghostN: 3, ghostFloors: [0, 1, 2], ghostsStay: false, ghostSpeed: 3.4, fright: 7, ghostWait: [4, 6, 9],   // 1ぴきは はじめから 北の駅（主人公のいる階）に いる。3ぴき目は 駅ビルから
     /* むずかしい版：3つの階に ちらばるので、オニ4ひき（どの階にも いる）。北の駅は 2ひき */
     hardGhostN: 4, hardGhostFloors: [0, 1, 2, 0], hardGhostWait: [4, 6, 9, 12],
     pal: PAL("#1E608F", "#174D74", "#113A58"),
@@ -480,7 +480,7 @@ const LEVELS = [
     lead: "建物の ほとんどが、地面の下に かくれている ミュージアム。",
     pattern: "travertine", mat: "stone", mainFloor: 0,
     noTrail: 1,      // 歩いたあとを 色で塗らない。部屋の中のスケッチが 見えなくなるため
-    ghostN: 2, ghostFloors: [0, 1], ghostSpeed: 3.7, fright: 6.5, ghostWait: [4, 6],   // オニは 地下の扉絵の間と 地上のロビーから
+    ghostN: 3, ghostFloors: [0, 1, 0], ghostSpeed: 3.35, fright: 6.5, ghostWait: [4, 6, 9],   // オニは 地下の扉絵の間と 地上のロビーから。3ぴきにしたぶん 速さを 3.7→3.35 にゆるめた
     /* むずかしい版：地下2ひき・地上2ひき（地下が広くなったぶん） */
     hardGhostN: 4, hardGhostFloors: [0, 1, 0, 1], hardGhostWait: [3, 5, 8, 11],
     /* オニは階段を使って主人公の階へ追ってくる（階段の出口の印が赤くゆれたら、オニが来る合図） */
