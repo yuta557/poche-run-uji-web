@@ -177,6 +177,13 @@
   button.primary { padding:clamp(9px, 1.7dvh, 14px) 28px; font-size:clamp(15px, min(4.8vw, 2.6dvh), 19px); min-width:min(200px, 70vw); }
   button.ghosty { padding:clamp(6px, 1.1dvh, 9px) 16px; }
   .credits { font-size:clamp(10px, 1.5dvh, 11px); }
+    /* ---- はじめの画面の 間のとり方（同じ すきまを ならべるより、まとまりで 分ける） ---- */
+    #title .ovl { gap:clamp(10px, 2.6dvh, 22px); }
+    #title .logo .kicker { margin-bottom:clamp(10px, 2.4dvh, 20px); }   /* FIGURE/GROUND と 題の間 */
+    #title #playBtn { margin-top:clamp(8px, 3dvh, 28px);                /* 文と ボタンの間は 広めに */
+      padding:clamp(12px, 2.2dvh, 18px) clamp(34px, 11vw, 56px);
+      font-size:clamp(17px, min(5.2vw, 2.9dvh), 22px); min-width:min(260px, 74vw); }
+    #title .credits { margin-top:clamp(10px, 3.4dvh, 34px); }           /* ボタンのまとまりと 注記の間 */
   .storyOvl { padding-top:clamp(48px, 8dvh, 58px); }
   #stCv { width:min(100%, 420px, calc(36dvh * 680 / 520)); height:auto; }
   .stBody { font-size:clamp(14px, min(4.8vw, 2.7dvh), 21px); min-height:0; line-height:1.6; }
