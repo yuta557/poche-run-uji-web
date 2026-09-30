@@ -412,7 +412,7 @@ const LEVELS = [
         {t:"room",x:8.5,y:6.2,s:"ほんでん（おおいの 中）",size:.36},
         {t:"room",x:11.4,y:11.6,s:"← 石だん",size:.34},{t:"text",x:11.4,y:12.5,s:"ここだけで 行き来",size:.3},
         {t:"room",x:8.5,y:18.2,s:"はいでん",size:.42},
-        {t:"room",x:8.5,y:22.0,s:"お参りの 道",size:.36}
+        {t:"room",x:8.5,y:20.9,s:"お参りの 道",size:.36}
       ]}
     ],
     warps: [],
@@ -448,8 +448,8 @@ const LEVELS = [
       { key:"Station B1", name:"地下通路", elev:-1, powerN:1,        // 青のカケラは この階に 1つだけ
         pen:{ spots:[[6,15],[7,15],[6,16],[7,16]], door:[6,17] }, decor:[
         {t:"room",x:8.5,y:9.0,s:"階だんの ホール",size:.3},
-        {t:"text",x:14.0,y:10.9,s:"↑ 上は JRの 線路",size:.28},
-        {t:"room",x:8.5,y:19.0,s:"南の 駅ビルへ",size:.28}
+        {t:"text",x:8.2,y:5.4,s:"↑ 上は JRの 線路",size:.28},
+        {t:"room",x:8.5,y:20.2,s:"南の 駅ビルへ",size:.28}
       ]},
       { key:"Station Exit", name:"駅ビル", elev:0, powerN:1,         // 青のカケラは この階に 1つだけ
         pen:{ spots:[[3,15],[4,15],[3,16],[4,16]], door:[3,14] }, decor:[
@@ -2239,6 +2239,13 @@ function drawDecor(t,p,fl,top){
       ctx.fillStyle = planView ? "#4a463d" : p.label;
       ctx.font = `${d.t==="room"&&planView?600:400} ${size}px "Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif`;
       ctx.textAlign = "center";
+      /* 盤面から はみ出す ふだは 出さない（切れて 読めなくなるため） */
+      const tw = ctx.measureText(d.s).width, mt = ctx.getTransform();
+      const bx0 = mt.a*(d.x*TILE - tw/2) + mt.e, bx1 = mt.a*(d.x*TILE + tw/2) + mt.e;
+      const by0 = mt.d*(d.y*TILE - size*0.85) + mt.f, by1 = mt.d*(d.y*TILE + size*0.2) + mt.f;
+      if (bx0 < 2 || bx1 > cv.width - 2 || by0 < 2 || by1 > cv.height - 2){
+        ctx.textAlign = "left"; ctx.lineWidth = 2; continue;
+      }
       ctx.lineJoin = "round"; ctx.lineWidth = Math.max(2, size*0.3);
       ctx.strokeStyle = "rgba(255,251,242,.88)";
       ctx.strokeText(d.s, d.x*TILE, d.y*TILE);
