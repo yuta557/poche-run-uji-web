@@ -21,7 +21,7 @@
     padding:max(6px, env(safe-area-inset-top)) 6px max(6px, env(safe-area-inset-bottom));
     -webkit-user-select:none; user-select:none; touch-action:manipulation;
   }
-  #frame { position:relative; width:min(96vw, 640px); padding-bottom:84px; }   /* 下の 84px は「見どころのひとこと」用 */
+  #frame { position:relative; width:min(99vw, 640px); padding-bottom:84px; }   /* 下の 84px は「見どころのひとこと」用 */
   #hud { display:flex; align-items:center; gap:5px; padding:0 2px 4px; font-size:14px; min-height:34px; }
   #hud .lv { flex:1 1 auto; min-width:0; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }   /* 長い名前は …に。♥ とかさならないように */
   #progWrap { flex:0 1 44px; min-width:22px; height:10px; border-radius:99px; background:#EFE6D0; overflow:hidden; }
@@ -730,9 +730,9 @@ function fitFrame(){
     const hh = hud.offsetHeight || 0;
     const hp = (hlp && hlp.offsetParent !== null) ? hlp.offsetHeight + 8 : 0;
     const toastH = parseFloat(getComputedStyle(f).paddingBottom) || 84;   // 盤面の下に出す「見どころのひとこと」の場所（CSS で決める）
-    const chrome = hh + hp + 16 + toastH;
+    const chrome = hh + hp + 10 + toastH;
     const byH = Math.max(0, vh - chrome) * COLS / ROWS;
-    const w = Math.max(240, Math.min(vw - 12, 640, byH));
+    const w = Math.max(240, Math.min(vw - 4, 640, byH));   // 横の余白は 左右 2px ずつだけ
     const cur = parseFloat(f.style.width) || 0;
     f.style.width = w + "px";
     if (Math.abs(cur - w) < 0.5) break;
