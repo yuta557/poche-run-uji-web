@@ -28,7 +28,7 @@
   #prog { display:block; height:100%; width:0; border-radius:99px;
     background:linear-gradient(90deg, var(--yellow), var(--teal), var(--coral), var(--sky)); transition:width .2s; }
   #lives { flex:0 0 auto; color:var(--coral); letter-spacing:.08em; font-size:15px; }
-  .hbtn { flex:0 0 auto; min-width:36px; height:34px; padding:0 8px; border-radius:99px; font-size:14px; font-weight:700;
+  .hbtn { flex:0 0 auto; min-width:36px; height:34px; padding:0 14px; border-radius:99px; font-size:14px; font-weight:700;
     background:var(--card); border:2px solid var(--line); color:var(--ink); text-align:center; }
   #hud.idle #progWrap, #hud.idle #lives, #hud.idle #planBtn, #hud.idle #quitBtn { display:none; }
   canvas#cv { display:block; width:100%; background:var(--paper); border-radius:16px;
@@ -213,7 +213,7 @@
     #hud { font-size:13px; gap:4px; }
     #progWrap { flex-basis:30px; }
     #lives { font-size:13px; letter-spacing:0; }
-    .hbtn { padding:0 6px; min-width:34px; font-size:13px; }
+    .hbtn { padding:0 11px; min-width:34px; font-size:13px; }
   }
   /* 横持ちで高さが低い画面：盤面は左、上の帯と見どころのひとことは右 */
   @media (orientation:landscape) and (max-height:560px){
@@ -2544,7 +2544,7 @@ function map3dOpen(){
   map3d.yaw = (L.mapYaw != null) ? L.mapYaw : -0.9;  // 開いたときの向き（面ごとに、建物の正面が手前に来る向き）
   const w = $("mapWrap"); w.hidden = false;
   const fl = L.floors.length > 1 ? "・" + L.floors[player.f].name : "";
-  $("mapHead").textContent = "3D〈" + (L.short || L.nameJa) + fl + "〉";
+  $("mapHead").textContent = "〈" + (L.short || L.nameJa) + fl + "〉";
   const hint = w.querySelector(".mapHint"); if (hint) hint.textContent = "1本指で回す／2本指で大きく・ずらす" + (L.seeInside ? "（大きくすると中が見える）" : "");
   map3dModel(map3d.key);
 }
