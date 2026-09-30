@@ -61,8 +61,8 @@
   .tagline { font-size:clamp(19px,5.6vw,26px); font-weight:700; line-height:1.6; }
   .credits { font-size:11px; color:var(--sub); line-height:1.8; }
   /* ---- 説明（2枚） ---- */
-  .storyOvl { position:relative; padding-top:48px; }
-  .skip { position:absolute; top:10px; right:10px; border:2px solid var(--line); background:var(--card); border-radius:99px;
+  .storyOvl { position:relative; padding-top:56px; }   /* スキップのボタンのぶん 空ける */
+  .skip { position:absolute; top:0; right:6px; border:2px solid var(--line); background:var(--card); border-radius:99px;
     padding:7px 14px; font-size:13px; font-weight:700; }
   #stCv { width:100%; max-width:420px; border-radius:14px; background:#fff; border:2px solid var(--line); }
   .stBody { font-size:clamp(17px,4.8vw,21px); font-weight:700; line-height:1.7; min-height:3.4em; }
@@ -176,7 +176,7 @@
   button.primary { padding:clamp(9px, 1.7dvh, 14px) 28px; font-size:clamp(15px, min(4.8vw, 2.6dvh), 19px); min-width:min(200px, 70vw); }
   button.ghosty { padding:clamp(6px, 1.1dvh, 9px) 16px; }
   .credits { font-size:clamp(10px, 1.5dvh, 11px); }
-  .storyOvl { padding-top:clamp(40px, 7dvh, 52px); }
+  .storyOvl { padding-top:clamp(48px, 8dvh, 58px); }
   #stCv { width:min(100%, 420px, calc(36dvh * 680 / 520)); height:auto; }
   .stBody { font-size:clamp(14px, min(4.8vw, 2.7dvh), 21px); min-height:0; line-height:1.6; }
   h2.selTitle { font-size:clamp(18px, 3.2dvh, 22px); }
@@ -494,7 +494,7 @@ const LEVELS = [
         {t:"room",x:3.5,y:16.8,s:"しゅうぞうこ",size:.2},
         {t:"text",x:8.5,y:19.0,s:"↓ 階だん",size:.26}      // 「入口（池がわ）」は かべと重なるので 出さない
       ]},
-      { key:"Hosho G", name:"地上", elev:0, off:[3,1],   /* 迷路が 左に よっていたので、盤面だけ まん中へ寄せる */
+      { key:"Hosho G", name:"地上", elev:0,
         pen:{ spots:[[2,12],[3,12],[2,13],[3,13]], door:[1,12] }, decor:[
         // 名前の場所は 部屋のマスから計算（マス c0〜c1 は c0〜c1+1 を占める。まん中は (c0+c1+1)/2）
         {t:"room",x:3.5,y:13.8,s:"ミュージアムショップ",size:.19},
@@ -859,6 +859,44 @@ function mapTipTick(dt){
   else mapTipPlace();
 }
 
+
+/* 面ごとに 迷路の大きさを 変える。
+   その階で 使っているところ（かべ・ふだ・階段の印）だけを はかって、盤面いっぱいに 広げる。
+   迷路のデータ（grids.json）は 動かさない。描くときに 大きくして ずらすだけなので、
+   3Dの めいろ・入場の平面図・階段のつながりは 何も変わらない。 */
+const fitCache = new Map();
+function floorFit(fl){
+  const ck = (L ? L.nameJa : "") + "/" + fl;
+  if (fitCache.has(ck)) return fitCache.get(ck);
+  const g = grids[fl];
+  let wx0 = COLS, wy0 = ROWS, wx1 = 0, wy1 = 0;                 // かべだけの四角
+  for (let y=0;y<ROWS;y++) for (let x=0;x<COLS;x++) if (g[y][x]==="#"){
+    if (x<wx0)wx0=x; if (y<wy0)wy0=y; if (x+1>wx1)wx1=x+1; if (y+1>wy1)wy1=y+1;
+  }
+  let x0=wx0, y0=wy0, x1=wx1, y1=wy1;                            // ふだや 階段の印も 入れた四角
+  const put = (a,b,c,d)=>{ if(a<x0)x0=a; if(b<y0)y0=b; if(c>x1)x1=c; if(d>y1)y1=d; };
+  for (const d of (L.floors[fl].decor || [])){
+    if (d.t!=="text" && d.t!=="room") continue;
+    const w = (d.s ? d.s.length : 2) * (d.size || 0.5) * 0.62;
+    put(d.x - w/2 - 0.2, d.y - (d.size||0.5) - 0.2, d.x + w/2 + 0.2, d.y + 0.3);
+  }
+  for (const k2 of warpAt.keys()){
+    const [f2, wx, wy] = unkey3(k2);
+    if (f2 !== fl) continue;
+    put(wx - 2.4, wy - 0.6, wx + 3.4, wy + 1.6);
+  }
+  const w = Math.max(1, x1-x0), h = Math.max(1, y1-y0);
+  const k = Math.max(1, Math.min(COLS/w, ROWS/h));               // 小さくはしない
+  /* ふだこみで まん中にそろえる。ただし かべは ぜったいに 画面の外へ出さない */
+  let dx = ((COLS - w*k)/2 - x0*k) * TILE;
+  let dy = ((ROWS - h*k)/2 - y0*k) * TILE;
+  const cl = (v, lo, hi) => (lo > hi ? (lo+hi)/2 : Math.min(Math.max(v, lo), hi));
+  dx = cl(dx, COLS*TILE - wx1*k*TILE, -wx0*k*TILE);
+  dy = cl(dy, ROWS*TILE - wy1*k*TILE, -wy0*k*TILE);
+  const f = { k, dx, dy, w, h };
+  fitCache.set(ck, f);
+  return f;
+}
 /* ------- BFS over all floors ------- */
 const bfsCache = new Map();
 let bfsAge = 0;
@@ -1857,10 +1895,10 @@ function drawScene(t){
   ctx.stroke();
   if (!L){ ctx.restore(); return; }
 
-  /* この階だけ 盤面を ずらしたいとき（off:[よこ,たて]）。
+  /* 面ごとに 迷路の大きさを 変える（floorFit）。
      迷路のデータは そのままなので、3Dの めいろ・平面図・階段の場所は 変わらない */
-  const bo = flo.off;
-  if (bo) ctx.translate(bo[0]*TILE, bo[1]*TILE);
+  const bf = floorFit(fl);
+  ctx.translate(bf.dx, bf.dy); ctx.scale(bf.k, bf.k);
 
   drawDecor(t, p, fl);
 
