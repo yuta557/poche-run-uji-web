@@ -22,15 +22,19 @@
     -webkit-user-select:none; user-select:none; touch-action:manipulation;
   }
   #frame { position:relative; width:min(96vw, 640px); padding-bottom:84px; }   /* 下の 84px は「見どころのひとこと」用 */
-  #hud { display:flex; align-items:center; gap:5px; padding:0 2px 6px; font-size:14px; min-height:40px; }
-  #hud .lv { flex:1 1 auto; min-width:0; font-weight:700; white-space:nowrap; overflow:visible; }   /* 文は切らず、ほかを縮めて横幅を広くとる */
+  #hud { display:flex; align-items:center; gap:5px; padding:0 2px 4px; font-size:14px; min-height:34px; }
+  #hud .lv { flex:1 1 auto; min-width:0; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }   /* 長い名前は …に。♥ とかさならないように */
   #progWrap { flex:0 1 44px; min-width:22px; height:10px; border-radius:99px; background:#EFE6D0; overflow:hidden; }
   #prog { display:block; height:100%; width:0; border-radius:99px;
     background:linear-gradient(90deg, var(--yellow), var(--teal), var(--coral), var(--sky)); transition:width .2s; }
   #lives { flex:0 0 auto; color:var(--coral); letter-spacing:.08em; font-size:15px; }
-  .hbtn { flex:0 0 auto; min-width:36px; height:34px; padding:0 8px; border-radius:99px; font-size:14px; font-weight:700;
+  .hbtn { flex:0 0 auto; min-width:30px; height:30px; padding:0 7px; border-radius:99px; font-size:13px; font-weight:700;
     background:var(--card); border:2px solid var(--line); color:var(--ink); text-align:center; }
-  #planBtn { padding:0 14px; }        /* 字のボタンだけ 左右をひろく（アイコンのボタンは まるいまま） */
+  #planBtn { padding:0 10px; }        /* 字のボタンだけ 左右をひろく（アイコンのボタンは まるいまま） */
+  .sndIcon { display:block; width:15px; height:15px; margin:0 auto; fill:currentColor; stroke:currentColor;
+    stroke-width:0; stroke-linecap:round; }
+  .sndIcon .w { fill:none; stroke-width:2; }
+  #sndBtn2 .sndIcon { display:inline-block; vertical-align:-3px; margin:0 2px 0 0; }
   #hud.idle #progWrap, #hud.idle #lives, #hud.idle #planBtn, #hud.idle #quitBtn { display:none; }
   canvas#cv { display:block; width:100%; background:var(--paper); border-radius:16px;
     box-shadow:0 1px 0 var(--line), 0 10px 30px rgba(30,96,143,.12); touch-action:none; }
@@ -204,7 +208,7 @@
     box-shadow:0 4px 14px rgba(0,0,0,.12); }
   #cap:empty { display:none; }
   /* 指で操作する端末は、ボタンを押しやすい大きさに */
-  @media (pointer:coarse){ .hbtn { height:40px; min-width:40px; } .mapMode { padding:8px 18px; } }
+  @media (pointer:coarse){ .hbtn { height:34px; min-width:34px; } .mapMode { padding:8px 18px; } }
   /* 幅のせまい端末（320px など） */
   @media (max-width:359px){
     #frame { padding-bottom:100px; }
@@ -214,8 +218,8 @@
     #hud { font-size:13px; gap:4px; }
     #progWrap { flex-basis:30px; }
     #lives { font-size:13px; letter-spacing:0; }
-    .hbtn { padding:0 6px; min-width:34px; font-size:13px; }
-    #planBtn { padding:0 11px; }
+    .hbtn { padding:0 5px; min-width:28px; font-size:12px; }
+    #planBtn { padding:0 8px; }
   }
   /* 横持ちで高さが低い画面：盤面は左、上の帯と見どころのひとことは右 */
   @media (orientation:landscape) and (max-height:560px){
@@ -250,7 +254,7 @@
     <div class="lv" id="lvname">POCHÉ RUN UJI</div>
     <div id="lives" aria-label="のこり"></div>
     <button class="hbtn" id="planBtn" title="Vキーでも切りかえ">3D</button>
-    <button class="hbtn" id="sndBtn" title="Mキーでも切りかえ" aria-label="音">🔇</button>
+    <button class="hbtn" id="sndBtn" title="Mキーでも切りかえ" aria-label="音"><svg class="sndIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.6v12.8L7.2 14.5H4z"/><path class="w" d="M15.8 9.8l5 4.4"/><path class="w" d="M20.8 9.8l-5 4.4"/></svg></button>
     <button class="hbtn" id="quitBtn" title="Escキーでももどれる" aria-label="やめる">✕</button>
   </div>
   <div id="stage">
@@ -280,7 +284,7 @@
     <div class="row">
       <button class="ghosty" id="hardBtn" hidden>ふつうの版</button>
       <button class="ghosty" id="selBtn">面を選ぶ</button>
-      <button class="ghosty" id="sndBtn2">🔇 音OFF</button>
+      <button class="ghosty" id="sndBtn2"><svg class="sndIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.6v12.8L7.2 14.5H4z"/><path class="w" d="M15.8 9.8l5 4.4"/><path class="w" d="M20.8 9.8l-5 4.4"/></svg> 音OFF</button>
     </div>
     <div class="credits">建物の絵・地図は イメージです</div>
   </div></div>
@@ -2861,6 +2865,9 @@ function map3dBind(){
 }
 
 /* ---------------- input ---------------- */
+/* 音のアイコン（絵文字を使わない）*/
+const SND_ON  = '<svg class="sndIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.6v12.8L7.2 14.5H4z"/><path class="w" d="M15.6 9.2a4.2 4.2 0 0 1 0 5.6"/><path class="w" d="M18.4 6.6a8 8 0 0 1 0 10.8"/></svg>';
+const SND_OFF = '<svg class="sndIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.6v12.8L7.2 14.5H4z"/><path class="w" d="M15.8 9.8l5 4.4"/><path class="w" d="M20.8 9.8l-5 4.4"/></svg>';
 const KEYMAP = { ArrowUp:"up",KeyW:"up",ArrowDown:"down",KeyS:"down",ArrowLeft:"left",KeyA:"left",ArrowRight:"right",KeyD:"right" };
 function togglePlan(){
   if (state!=="play" && state!=="dying") return;
@@ -2879,8 +2886,9 @@ function quitToSelect(){
 }
 function updateSndBtn(){
   const a = $("sndBtn"), b = $("sndBtn2");
-  if (a) a.textContent = muted ? "🔇" : "🔊";
-  if (b) b.textContent = muted ? "🔇 音OFF" : "🔊 音ON";
+  /* 絵文字は 機械ごとに 形がちがうので、自分で描いたアイコンを使う */
+  if (a) a.innerHTML = muted ? SND_OFF : SND_ON;
+  if (b) b.innerHTML = (muted ? SND_OFF : SND_ON) + (muted ? " 音OFF" : " 音ON");
 }
 function setMuted(m){
   muted = m;
