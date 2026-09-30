@@ -733,6 +733,8 @@ function fitFrame(){
     f.style.width = w + "px";
     if (Math.abs(cur - w) < 0.5) break;
   }
+  /* キーの案内は 1行に 約390px いる。わくが せまいと 2行に折り返して じゃまなので 出さない */
+  if (hlp) hlp.style.display = (parseFloat(f.style.width) || 0) < 410 ? "none" : "";
   syncHudH();
 }
 /* HUD：面の名前・光ったぶん・残り だけ */
