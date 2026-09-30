@@ -21,7 +21,7 @@
     padding:max(6px, env(safe-area-inset-top)) 6px max(6px, env(safe-area-inset-bottom));
     -webkit-user-select:none; user-select:none; touch-action:manipulation;
   }
-  #frame { position:relative; width:min(99vw, 640px); padding-bottom:84px; }   /* 下の 84px は「見どころのひとこと」用 */
+  #frame { position:relative; width:min(99vw, 640px); padding-bottom:52px; }   /* 下の 52px は「見どころのひとこと」用。文を みじかくしたので 84px から つめた */
   #hud { display:flex; align-items:center; gap:5px; padding:0 2px 4px; font-size:14px; min-height:34px; }
   #hud .lv { flex:1 1 auto; min-width:0; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }   /* 長い名前は …に。♥ とかさならないように */
   #progWrap { flex:0 1 44px; min-width:22px; height:10px; border-radius:99px; background:#EFE6D0; overflow:hidden; }
@@ -38,7 +38,7 @@
   #hud.idle #progWrap, #hud.idle #lives, #hud.idle #planBtn, #hud.idle #quitBtn { display:none; }
   canvas#cv { display:block; width:100%; background:var(--paper); border-radius:16px;
     box-shadow:0 1px 0 var(--line), 0 10px 30px rgba(30,96,143,.12); touch-action:none; }
-  .overlay { position:absolute; inset:var(--hudh,46px) 0 84px 0; display:flex; z-index:5; overflow:auto;
+  .overlay { position:absolute; inset:var(--hudh,46px) 0 52px 0; display:flex; z-index:5; overflow:auto;
     background:rgba(255,251,242,.97); border-radius:16px; touch-action:pan-y; }
   .overlay.hidden { display:none; }
   /* 説明などの右上の ✕（盤面の外に出る大きい画面でも、画面いっぱいのスマホでも右上に） */
@@ -114,7 +114,7 @@
     border:3px solid var(--yellow); font-size:clamp(15px,4.4vw,20px); font-weight:800; line-height:1.5;
     box-shadow:0 6px 20px rgba(0,0,0,.12); max-width:90%; }
   /* 見どころのひとことは盤面の外（すぐ下）に出して、迷路を隠さない */
-  #toast { position:absolute; left:4px; right:4px; bottom:0; min-height:76px; z-index:4; pointer-events:none;
+  #toast { position:absolute; left:4px; right:4px; bottom:0; min-height:46px; z-index:4; pointer-events:none;
     background:rgba(255,255,255,.95); border-radius:14px; border-left:6px solid var(--yellow);
     padding:9px 12px; text-align:left; box-shadow:0 6px 18px rgba(0,0,0,.12);
     opacity:0; transition:opacity .25s; }   /* 下にずらす演出はしない（ページがはみ出してスクロールが出るため） */
@@ -122,7 +122,7 @@
   #toast b { display:block; font-size:15px; }
   #toast span { display:block; font-size:13px; line-height:1.55; color:var(--sub); margin-top:2px; }
   /* ---- 3D ちず ---- */
-  #mapWrap { position:absolute; inset:var(--hudh,46px) 0 84px 0; z-index:6; border-radius:16px; overflow:hidden;
+  #mapWrap { position:absolute; inset:var(--hudh,46px) 0 52px 0; z-index:6; border-radius:16px; overflow:hidden;
     background:radial-gradient(circle at 50% 42%, #FFFFFF 0%, #FBF5E6 60%, #EFE6D0 100%); touch-action:none; }
   /* はじまりの演出：ボタンや札はかくして、建物と題だけ */
   #mapWrap .mapCaption { display:none; }
@@ -211,8 +211,8 @@
   @media (pointer:coarse){ .hbtn { height:34px; min-width:34px; } .mapMode { padding:8px 18px; } }
   /* 幅のせまい端末（320px など） */
   @media (max-width:359px){
-    #frame { padding-bottom:100px; }
-    #toast { min-height:92px; padding:7px 10px; }
+    #frame { padding-bottom:62px; }
+    #toast { min-height:56px; padding:6px 9px; }
     #toast b { font-size:14px; }
     #toast span { font-size:12px; line-height:1.5; }
     #hud { font-size:13px; gap:4px; }
@@ -481,8 +481,8 @@ const LEVELS = [
     /* 見どころの文は、雑誌の図面と仕上表（2001年）で確かめたことだけ */
     landmarks: [
       { f:0, x:13, y:9,  n:"うんちゅうの間", c:"天井が5mもあるへや。雲にのったほとけの ぞうが かべにならぶよ。" },
-      { f:1, x:9,  y:13, n:"うすい屋根とガラスの帯", c:"うすい平らな屋根が、高さをかえて何まいも重なる。" },
-      { f:1, x:10, y:6,  n:"木のデッキと コケの庭", c:"庭の景色をこわさないよう、建物はおかにうめてある。" }
+      { f:1, x:9,  y:13, n:"重なる うすい屋根", c:"うすい平らな屋根が、高さをかえて何まいも重なる。" },
+      { f:1, x:10, y:6,  n:"おかに うめた 建物", c:"庭の景色をこわさないよう、建物はおかにうめてある。" }
     ],
     floors: [
       { key:"Hosho B1", name:"地下", elev:-1,
